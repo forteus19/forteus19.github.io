@@ -1,17 +1,49 @@
-<!DOCTYPE html><html lang=en><meta charset=UTF-8><meta content="IE=edge"http-equiv=X-UA-Compatible><meta content="width=device-width,initial-scale=1"name=viewport><title>Discord Number Generator</title><label>Enter the starting number:</label> <input id=start_num type=number><br><button id=generate_button onclick=generate()>Generate!</button><script>function generate() {
-  var start_num = document.getElementById("start_num").value;
-  let chars_left = 2000;
-  let n = parseInt(start_num);
-  let output = "";
-  while (chars_left > 0) {
-    let c = `${n}\n`;
-    if (c.length > chars_left) break;
-    chars_left -= c.length;
-    output += c;
-    n++;
-  }
-  navigator.clipboard.writeText(output);
-  document.getElementById("start_num").value = n.toString();
-  document.getElementById("generate_button").innerHTML =
-    "Copied to clipboard!";
-}</script>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Discord Number Generator</title>
+  </head>
+  <body>
+    <label>Starting number: </label>
+    <input type="number" id="start_num" /><br />
+    <label>End number (optional): </label>
+    <input type="number" id="end_num" /><br />
+    <label>Character limit: </label>
+    <input type="number" id="char_limit" value="2000" /><br />
+    <button onclick="generate()" id="generate_button">Generate</button>
+    <button onclick="copy_output()">Copy to clipboard</button><br />
+    <textarea id="output_area" cols="30" rows="20" disabled></textarea><br />
+    <label id="total_chars_label">Total characters: 0</label>
+  </body>
+  <script>
+    function update_total_chars() {
+      var output = document.getElementById("output_area").value;
+      document.getElementById("total_chars_label").innerHTML =
+        "Total characters: " + output.length;
+    }
+    document.getElementById("output_area").addEventListener("input", update_total_chars);
+    function generate() {
+      var n = parseInt(document.getElementById("start_num").value);
+      var end = parseInt(document.getElementById("end_num").value);
+      var char_limit = parseInt(document.getElementById("char_limit").value);
+      var output = "";
+      while (output.length < char_limit) {
+        let c = `${n}\n`;
+        if (c.length > char_limit - output.length || (end && n > end)) break;
+        output += c;
+        n++;
+      }
+      document.getElementById("output_area").value = output;
+      document.getElementById("start_num").value = n.toString();
+      update_total_chars();
+    }
+    function copy_output() {
+      var output = document.getElementById("output_area").value;
+      navigator.clipboard.writeText(output);
+      alert("Copied to clipboard!");
+    }
+  </script>
+</html>
