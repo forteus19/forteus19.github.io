@@ -1,1 +1,17 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible"content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Discord Number Generator</title></head><body><label>Enter the starting number:</label><input type="number" id="start_num"><br><button onclick="generate()"id="generate_button">Generate!</button></body><script>function generate(){var start_num=document.getElementById("start_num").value;let chars_left=2000;let n=parseInt(start_num);let output="";while(chars_left > 0){let c=`${n}\n`;if(c.length>chars_left)break;chars_left-=c.length;output+=c;n++;}navigator.clipboard.writeText(output);document.getElementById("generate_button").innerHTML="Copied to clipboard!";}</script></html>
+<!DOCTYPE html><html lang=en><meta charset=UTF-8><meta content="IE=edge"http-equiv=X-UA-Compatible><meta content="width=device-width,initial-scale=1"name=viewport><title>Discord Number Generator</title><label>Enter the starting number:</label> <input id=start_num type=number><br><button id=generate_button onclick=generate()>Generate!</button><script>function generate() {
+  var start_num = document.getElementById("start_num").value;
+  let chars_left = 2000;
+  let n = parseInt(start_num);
+  let output = "";
+  while (chars_left > 0) {
+    let c = `${n}\n`;
+    if (c.length > chars_left) break;
+    chars_left -= c.length;
+    output += c;
+    n++;
+  }
+  navigator.clipboard.writeText(output);
+  document.getElementById("start_num").value = n.toString();
+  document.getElementById("generate_button").innerHTML =
+    "Copied to clipboard!";
+}</script>
