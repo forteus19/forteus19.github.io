@@ -36,6 +36,7 @@
         output += c;
         n++;
       }
+      output = output.slice(0, -1);
       document.getElementById("output_area").value = output;
       document.getElementById("start_num").value = n.toString();
       update_total_chars();
