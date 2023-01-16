@@ -28,7 +28,7 @@
     function generate() {
       var n = parseInt(document.getElementById("start_num").value);
       var end = parseInt(document.getElementById("end_num").value);
-      var char_limit = parseInt(document.getElementById("char_limit").value);
+      var char_limit = parseInt(document.getElementById("char_limit").value) + 1;
       var output = "";
       while (output.length < char_limit) {
         let c = `${n}\n`;
